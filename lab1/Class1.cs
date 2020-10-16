@@ -52,7 +52,7 @@ namespace lab1
             this.Grid = grd;
             this.Massiv = new Complex[Grid.NumberX, Grid.NumberY];
         }
-        public void InitRandom(double minValue, double maxValue, Random rand)
+        public void InitRandom(double minValue, double maxValue,/*добавил сюда*/  Random rand)
         {
             //Random rand = new Random();
             int row = Massiv.GetLength(0);
@@ -155,7 +155,7 @@ namespace lab1
         {
             this.Dict = new Dictionary<System.Numerics.Vector2, System.Numerics.Complex>();
         }
-        public void InitRandom(int nItems, float xmax, float ymax, double minValue, double maxValue, Random rand)
+        public void InitRandom(int nItems, float xmax, float ymax, double minValue, double maxValue,/*добавил сюда*/ Random rand)
         {
             //Random rand = new Random();
             double x;
@@ -264,12 +264,11 @@ namespace lab1
             {
                 //rand = new Random();
                 fr = (float)rand.NextDouble() * 7;
-                //Console.Write(fr);
                 def0 = new Grid2D((float)rand.NextDouble() * 5, (float)rand.NextDouble() * 5, 10, 10);
                 def1 = new V4DataOnGrid((i * 2).ToString(), fr, def0);
                 def2 = new V4DataCollection((i * 2 + 1).ToString(), fr);
 
-                def1.InitRandom(minValue, maxValue, rand);
+                def1.InitRandom(minValue, maxValue, /*добавил сюда*/ rand);
                 def2.InitRandom(nItems, (float)rand.NextDouble(), (float)rand.NextDouble(), minValue, maxValue, rand);
                 list.Add(def1);
                 list.Add(def2);
