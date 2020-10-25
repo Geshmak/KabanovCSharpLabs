@@ -220,7 +220,7 @@ namespace lab1
             return line;
         }
     }
-    public class V4MainCollection
+    public class V4MainCollection/**/ : IEnumerable<V4Data>//
     {
         private List<V4Data> list;
         public V4MainCollection()
@@ -233,7 +233,7 @@ namespace lab1
             get { return list.Count(); }
 
         }
-        public interface IEnumerable
+        public interface IEnumerable<V4Data>
         {
             IEnumerator GetEnumerator();
         }
@@ -241,6 +241,12 @@ namespace lab1
         {
             return list.GetEnumerator();
         }
+        /**/
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return list.GetEnumerator();
+        }
+        
         public void Add(V4Data item)
         {
             list.Add(item);
@@ -284,5 +290,7 @@ namespace lab1
             }
             return line;
         }
+
+        
     }
 }
