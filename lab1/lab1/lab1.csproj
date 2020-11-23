@@ -44,9 +44,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="V4MainCollection.cs" />
+    <Compile Include="Grid2D.cs" />
+    <Compile Include="DataItem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="V4Data.cs" />
+    <Compile Include="V4DataCollection.cs" />
+    <Compile Include="V4DataOnGrid.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
