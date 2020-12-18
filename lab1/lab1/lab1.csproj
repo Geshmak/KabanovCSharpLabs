@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataChangedEventArgs.cs" />
     <Compile Include="V4MainCollection.cs" />
     <Compile Include="Grid2D.cs" />
     <Compile Include="DataItem.cs" />

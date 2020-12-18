@@ -2,13 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
-
+using System.ComponentModel;
 
 namespace lab1
 {   
     
     public class V4MainCollection/**/ : IEnumerable<V4Data>//
     {
+        public event DataChangedEventHandler DataChanged;
+
+        public void OnDataChanged(object source, DataChangedEventArgs args)
+        {
+            DataChanged?.Invoke(source, args);
+        }
+        public void PropertyC(object sender, PropertyChangedEventArgs args)
+        {
+            OnDataChanged(this, new DataChangedEventArgs(ChangeInfo.ItemChanged, num));
+        }
         public double AverAll
         {
             get
@@ -18,17 +28,34 @@ namespace lab1
         }
         public IEnumerable<DataItem> NearZero(float R)
         {
-            IEnumerable<V4DataCollection> fs1 = from V4Data x in list where x.Info == "Coll" select (V4DataCollection)x;  
-            IEnumerable<V4DataOnGrid> fs2 = from V4Data x in list where x.Info == "Grid" select (V4DataOnGrid)x;
-
-
+            Grid2D tmpGr = new Grid2D(0, 0, 0, 0);
+            V4DataOnGrid checkGr = new V4DataOnGrid("", 0, tmpGr);
+            V4DataCollection checkCo = new V4DataCollection("", 0);
+            
+            IEnumerable<V4DataCollection> fs1 = from V4Data x in list where x is V4DataCollection select (V4DataCollection)x;  
+            IEnumerable<V4DataOnGrid> fs2 = from V4Data x in list where x is V4DataOnGrid select (V4DataOnGrid)x;
+            
             var f1 = fs1.SelectMany(x => x).Where(y => y.CoordPoint.Length() < R);
             var f2 = fs2.SelectMany(x => x).Where(y => y.CoordPoint.Length() < R);
 
             var res = f1.Concat(f2);
             return res;
 
-        }/*
+        }
+        public V4Data this[int index]
+        {
+            get
+            {
+                return list[index];
+            }
+            set
+            {
+                value.PropertyChanged += PropertyC;
+                list[index] = value;
+                OnDataChanged(this, new DataChangedEventArgs(ChangeInfo.Replace, num));
+            }
+        }
+        /*
         public IEnumerable<Vector2> Ones
         {
             get
@@ -51,7 +78,9 @@ namespace lab1
         public V4MainCollection()
         {
             list = new List<V4Data>();
+            num = 0;
         }
+        public int num;
         public int count
         {
             set { }
@@ -74,11 +103,26 @@ namespace lab1
         
         public void Add(V4Data item)
         {
+            item.PropertyChanged += PropertyC;
             list.Add(item);
+            num++;
+
+            OnDataChanged(this, new DataChangedEventArgs(ChangeInfo.Add, num));
         }
         public bool Remove(string id, double w)
         {
-            int count = list.RemoveAll(item => (item.Frequency == w) && (item.Info == id));
+            
+            //V4Data tmp = list[ list.FindIndex(item => (item.Frequency == w) && (item.Info == id))];
+            //tmp.PropertyChanged -= PropertyC;
+            List<V4Data> tmp = list.FindAll(item => (item.Frequency == w) && (item.Info == id));
+            int count = tmp.Count;
+            if (count != 0)
+            {
+                tmp[0].PropertyChanged -= PropertyC;
+                num -= count;
+                OnDataChanged(this, new DataChangedEventArgs(ChangeInfo.Remove,num ));
+            }
+                
             return count > 0;
         }
         public void AddDefaults()
@@ -111,7 +155,7 @@ namespace lab1
         }
         public override string ToString()
         {
-            string line = "line: ";
+            string line = "V4MainCollection: " + "\n";
             foreach (V4Data item in list)
             {
                 line += item.ToString();
@@ -120,7 +164,7 @@ namespace lab1
         }
         public string ToLongString(string format)
         {
-            string line = "line: ";
+            string line = "V4MainCollection: "+"\n";
             foreach (V4Data item in list)
             {
                 line += item.ToLongString(format);

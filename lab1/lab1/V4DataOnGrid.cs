@@ -178,7 +178,7 @@ namespace lab1
             {
                 for (int j = 0; j < coll; j++)
                 {
-                    line += "\n(" + i.ToString() + "," + j.ToString() + ") - " + Massiv[i, j].ToString(format);
+                    line += "\n(" + i.ToString() + "," + j.ToString() + ") - " + Massiv[i, j].ToString(format) + " mag:   " + Massiv[i,j].Magnitude;
                 }
                 line += "\n";
             }

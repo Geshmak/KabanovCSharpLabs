@@ -111,7 +111,7 @@ namespace lab1
             foreach (KeyValuePair<Vector2, Complex> count in Dict)
             {
                 line += " (" + count.Key.X.ToString() + "," + count.Key.Y.ToString() + ") - "
-                    + count.Value.ToString();
+                    + count.Value.ToString() + " mag:   " + count.Value.Magnitude + "\n";
             }
             return line;
         }
@@ -122,7 +122,7 @@ namespace lab1
             foreach (KeyValuePair<Vector2, Complex> count in Dict)
             {
                 line += " (" + count.Key.X.ToString(format) + "," + count.Key.Y.ToString(format) + ") - "
-                    + count.Value.ToString();
+                    + count.Value.ToString()+" mag:   "+count.Value.Magnitude+ "\n";
             }
             return line;
         }
