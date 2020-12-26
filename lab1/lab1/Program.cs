@@ -19,7 +19,7 @@ namespace lab1
 
             
             V4DataOnGrid test = new V4DataOnGrid(path);
-            Console.WriteLine(test.ToLongString("{0}"));
+            //Console.WriteLine(test.ToLongString("{0}"));
             
 
 
@@ -31,16 +31,16 @@ namespace lab1
             V4DataOnGrid TestOnGrid = new V4DataOnGrid("first", 1.0, def0);
             Random rand = new Random();
             TestOnGrid.InitRandom(0, 100, rand);
-            Console.WriteLine(TestOnGrid.ToLongString("-0-"));
+            //Console.WriteLine(TestOnGrid.ToLongString("-0-"));
 
             V4DataCollection TestCollection = (V4DataCollection)TestOnGrid; //преобразование типа 
-            Console.WriteLine(TestCollection.ToLongString("_0_"));
+            //Console.WriteLine(TestCollection.ToLongString("_0_"));
             
             V4MainCollection TestMainCollection = new V4MainCollection();
             TestMainCollection.AddDefaults();
-            Console.WriteLine(TestMainCollection.ToLongString("|0|"));
+            Console.WriteLine(TestMainCollection.ToLongString(""));
 
-           
+           /*
             Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             V4MainCollection Testlab3 = new V4MainCollection();
             Testlab3.DataChanged += DataC;
@@ -52,7 +52,7 @@ namespace lab1
             Testlab3[0].CInfo = "TestChangeValue";
             Testlab3.Remove("TestChangeValue", 5.6);
             Console.WriteLine("-------------------------------------------------------------------");
-            
+            */
            
             Console.WriteLine("AverAll");
             Console.WriteLine(TestMainCollection.AverAll.ToString());
@@ -62,17 +62,23 @@ namespace lab1
             { 
                Console.WriteLine(i.ToString() );
             }
-            
 
-            Console.WriteLine(TestMainCollection.ToString());
+            Console.WriteLine("Ones");
+            foreach (Vector2 i in TestMainCollection.Ones)
+            {
+                Console.WriteLine(i.ToString());
+            }
+
+
+            //Console.WriteLine(TestMainCollection.ToString());
             Complex[] obj;
             foreach (var item in TestMainCollection)
                 {
-                    Console.WriteLine("\n");
+                    //Console.WriteLine("\n");
                     obj = item.NearMax((float)10);
                     for (int i = 0; i < obj.Length; i++)
                     {
-                        Console.WriteLine(obj[i].ToString());
+                        //Console.WriteLine(obj[i].ToString());
                     }
                 }
 

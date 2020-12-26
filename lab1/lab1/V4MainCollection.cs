@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
 using System.ComponentModel;
+using System.Numerics;
 
 namespace lab1
 {   
@@ -28,9 +29,7 @@ namespace lab1
         }
         public IEnumerable<DataItem> NearZero(float R)
         {
-            Grid2D tmpGr = new Grid2D(0, 0, 0, 0);
-            V4DataOnGrid checkGr = new V4DataOnGrid("", 0, tmpGr);
-            V4DataCollection checkCo = new V4DataCollection("", 0);
+            
             
             IEnumerable<V4DataCollection> fs1 = from V4Data x in list where x is V4DataCollection select (V4DataCollection)x;  
             IEnumerable<V4DataOnGrid> fs2 = from V4Data x in list where x is V4DataOnGrid select (V4DataOnGrid)x;
@@ -55,25 +54,21 @@ namespace lab1
                 OnDataChanged(this, new DataChangedEventArgs(ChangeInfo.Replace, num));
             }
         }
-        /*
+        
         public IEnumerable<Vector2> Ones
         {
             get
             {
-                IEnumerable<V4DataCollection> fs1 = from V4Data x in list where x.Info == "Coll" select (V4DataCollection)x;
-                var f = fs1.SelectMany(x => x.Dict);
-                //var di = f.Distinct();
-
-                var res = (from x in f where (f.Where(u => x.Equals(u.Key)).Count() == 1) select x.Key);
-
-                //(from x in all where (all.Where(x => x.Equals(x.Vect2)).Count() > 1) select x.Vect2);
-
-                var f1 = f.Where(x => f.Where(y => f.Contains(x)).Count() == 1).Select(x => x.Key); //f.Where(y => f.Contains(x)).Count()
-                //var f1 = from x in f where f.Contains(x)
-                return f1;
+                IEnumerable<V4DataCollection> first = from V4Data x in list where x is V4DataCollection select (V4DataCollection)x;
+                var second = first.SelectMany(x => x.Dict);
+                var third = from x in second group x by x.Key;
+                //var temp = from x in third select x.Count();
+                var fourth = from x in third where (x.Count()==1) select x.Key;
+                
+                return fourth;
                 
             }
-        }*/
+        }
         private List<V4Data> list;
         public V4MainCollection()
         {
@@ -128,7 +123,7 @@ namespace lab1
         public void AddDefaults()
         {
             Random rand = new Random();
-            int nItems = 10;
+            int nItems = 4;
             double minValue = 0.0;
             double maxValue = 100.0;
             double fr;
@@ -136,11 +131,11 @@ namespace lab1
             V4DataOnGrid def1;
             V4DataCollection def2;
             int a = -1;
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 2; i++)
             {
                 //rand = new Random();
                 
-                def0 = new Grid2D((float)rand.NextDouble() * 10, (float)rand.NextDouble() * 10, 10, 10);
+                def0 = new Grid2D((float)rand.NextDouble() * 10, (float)rand.NextDouble() * 10, 4, 4);
                 fr = (float)rand.NextDouble() * 10 * a; a *= -1;
                 def1 = new V4DataOnGrid("Grid", fr, def0);
                 fr = (float)rand.NextDouble() * 10 * a; a *= -1;

@@ -60,7 +60,7 @@ namespace lab1
             double comp;
             Vector2 Coordinate;
             Complex Value;
-            for (int count = 0; count < nItems; count++)
+            for (int count = 0; count < nItems-1; count++)
             {
                 real = rand.NextDouble() * (maxValue - minValue) + minValue;
                 comp = rand.NextDouble() * (maxValue - minValue) + minValue;
@@ -70,6 +70,13 @@ namespace lab1
                 Value = new Complex(real, comp);
                 Dict.Add(Coordinate, Value);
             }
+            real = rand.NextDouble() * (maxValue - minValue) + minValue;
+            comp = rand.NextDouble() * (maxValue - minValue) + minValue;
+            x = 0.5;
+            y = 0.5;
+            Coordinate = new Vector2((float)x, (float)y);
+            Value = new Complex(real, comp);
+            Dict.Add(Coordinate, Value);
         }
         public override Complex[] NearMax(float eps)
         {

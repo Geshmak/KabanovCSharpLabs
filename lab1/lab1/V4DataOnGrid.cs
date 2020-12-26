@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
 using System.Collections;
+using System.Globalization;
 
 namespace lab1
 {
@@ -76,6 +77,7 @@ namespace lab1
             //Complex[,] NMassiv = 0;
             try
             {
+                CultureInfo ci = new CultureInfo("ru-RU");
                 fs = new FileStream(filename, FileMode.Open);
                 StreamReader sr = new StreamReader(fs);
                 string line = sr.ReadLine();
@@ -85,14 +87,14 @@ namespace lab1
                 line = sr.ReadLine();
                 if (line == null)
                     throw new Exception("no Frequency");
-                Frequency = Convert.ToDouble(line);
+                Frequency = Convert.ToDouble(line,ci);
                 line = sr.ReadLine();
                 mas = line.Split(' ');
                 if (mas.Length != 4)
                 {
                     throw new Exception("wrong format: x,y");
                 }
-                Grid = new Grid2D(Convert.ToSingle(mas[0]), Convert.ToSingle(mas[1]), Convert.ToInt32(mas[2]), Convert.ToInt32(mas[3]));
+                Grid = new Grid2D(Convert.ToSingle(mas[0],ci), Convert.ToSingle(mas[1],ci), Convert.ToInt32(mas[2]), Convert.ToInt32(mas[3]));
                 Massiv = new Complex[Grid.NumberX, Grid.NumberY];
                 for (int i = 0; i < Grid.NumberX; i++)
                 {
